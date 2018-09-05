@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-
+#import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+DATABASE_CONFIG = {
+    'host': 'localhost',
+    'name': 'brewTrack',
+    'user': 'rees',
+    'password': 'root',
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -37,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bar.apps.BarConfig',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +83,12 @@ WSGI_APPLICATION = 'brewTrack.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DATABASE_CONFIG['name'],
+        'USER': DATABASE_CONFIG['user'],
+        'PASSWORD': DATABASE_CONFIG['password'],
+        'HOST': DATABASE_CONFIG['host'],
+        'PORT': '',
     }
 }
 
@@ -105,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 

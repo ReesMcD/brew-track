@@ -11,9 +11,16 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-#import config
+import json
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+with open('config.json', 'r') as f:
+    config = json.load(f)
+
+db_config = config['DB_CONFIG']
 
 DATABASE_CONFIG = {
     'host': 'localhost',
@@ -84,10 +91,10 @@ WSGI_APPLICATION = 'brewTrack.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': DATABASE_CONFIG['name'],
-        'USER': DATABASE_CONFIG['user'],
-        'PASSWORD': DATABASE_CONFIG['password'],
-        'HOST': DATABASE_CONFIG['host'],
+        'NAME': db_config['DB_NAME'],
+        'USER': db_config['USER'],
+        'PASSWORD': db_config['PASSWORD'],
+        'HOST': db_config['HOST'],
         'PORT': '',
     }
 }

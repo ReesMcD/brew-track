@@ -1,7 +1,8 @@
+<h1>BrewTrack</h1>
 {% if bar_list %}
     <ul>
     {% for bar in bar_list %}
-        <li><a href="/bar/{{ bar.id }}/">{{ bar.name }}</a></li>
+        <li><a href="{% url 'bar:bar' bar.id %}">{{ bar.name }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

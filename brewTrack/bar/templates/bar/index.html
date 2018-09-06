@@ -1,0 +1,9 @@
+{% if bar_list %}
+    <ul>
+    {% for bar in bar_list %}
+        <li><a href="/bar/{{ bar.id }}/">{{ bar.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No bars :(</p>
+{% endif %}

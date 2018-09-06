@@ -1,11 +1,15 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.template import loader
 from django.http import HttpResponse
-
+from .models import Bar
 
 def index(request):
-    return HttpResponse("Hello, What bar could you like?")
+    bar_list = Bar.objects.order_by('id')
+    template = loader.get_template('bar/index.html')
+    context = {
+        'bar_list': bar_list,
+    }
+    return HttpResponse(template.render(context, request))
 
 def bar(request, bar_id):
     response = "You're looking at bar %s."

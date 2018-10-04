@@ -5,21 +5,24 @@ from django.db import models
 class Bar(models.Model):
     name = models.CharField(max_length=20)
     pub_date = models.DateTimeField('date published')
+
+
+
 # bar model
 # location (addresses string)
 # menu (list)
-# hours 
+# hours
 # cover price (int list)
 # weekly calendar list (list)****
 # specials (list)
-# admin list 
+# admin list
 # tab list (list (string))
 # transcation list
 
 
 # drinks model
-# name 
-# alcholic 
+# name
+# alcholic
 # non alcoholic
 # ingridents (optional)
 # price (optional)
@@ -29,11 +32,11 @@ class Bar(models.Model):
 
 
 # event model
-# name 
+# name
 # type
 # description
 # date
-# ticket 
+# ticket
 # non ticket
 
 
@@ -41,4 +44,3 @@ class Bar(models.Model):
 # username
 # password
 # admin list
-

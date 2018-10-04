@@ -5,7 +5,7 @@ from .models import Bar
 
 def index(request):
     bar_list = Bar.objects.order_by('id')
-    # template = loader.get_template('bar/index.html')
+    template = loader.get_template('bar/index.html')
     context = {
         'bar_list': bar_list,
     }

@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 # Create your models here.
 
@@ -15,31 +16,31 @@ from django.db import models
 class Bar(models.Model):
     name = models.CharField(max_length=20)
     pub_date = models.DateTimeField('date published')
-    location = models.CharField(max_length=100)
-    hours = models.CharField(max_length=50)
+    location = models.CharField(max_length=100, default='unknown')
+    hours = models.CharField(max_length=50, default='unknown')
 
 # Drink Model
 class Drink(models.Model):
-    name = models.CharField(max_length=20)
-    alcholic = models.BooleanField(Defult=True)
-    ingridents = models.CharField(max_length=500) # Possibly make this its own model eventually
-    alcholic_content = models.CharField(max_length=100)
-    location = models.CharField(max_length=30)
-    type = models.CharField(max_length=20)
-    
+    name = models.CharField(max_length=20, default='unknown')
+    alcholic = models.BooleanField(default=True)
+    ingridents = models.CharField(max_length=500, default='unknown') # Possibly make this its own model eventually
+    alcholic_content = models.CharField(max_length=100, default='unknown')
+    location = models.CharField(max_length=30, default='unknown')
+    type = models.CharField(max_length=20, default='unknown')
+
 
 #Menu Model
 class Menu(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, default='unknown')
     #Many to Many with drinks
 
 
 # Event model
 class Event(models.Model):
-    name = models.CharField(max_length=20)
-    type = models.CharField(max_length=20)
-    description = models.CharField(max_length=100)
-    date = models.DateTimeField()
+    name = models.CharField(max_length=20, default='unknown')
+    type = models.CharField(max_length=20, default='unknown')
+    description = models.CharField(max_length=100, default='unknown')
+    date = models.DateTimeField('date published')
     ticket = models.BooleanField(default=False)
 
 # user model
@@ -47,4 +48,4 @@ class Event(models.Model):
 # password
 # admin list
 class User(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, default='unknown')

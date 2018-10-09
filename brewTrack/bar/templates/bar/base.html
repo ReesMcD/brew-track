@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% if bar %}
+            <title>BrewTrack - {{ bar.name }}</title>
+        {% else %}
+            <title>BrewTrack</title>
+        {% endif %}
+    </head>
+    <body>
+        {# Nav Stuff here #}
+
+    {% block content %}{% endblock content %}
+    </body>
+    <footer>
+    </footer>
+</html>

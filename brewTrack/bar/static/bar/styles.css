@@ -1,7 +1,22 @@
+::selection {
+  background: #D2DAD4; /* WebKit/Blink Browsers */
+}
+::-moz-selection {
+  background: #D2DAD4; /* Gecko Browsers */
+}
+a, u {
+    text-decoration: none !important;
+}
+
 .uk-navbar-container {
     background-color: #1192D3 !important;
 }
-
-h1 {
+.nav-link {
+    color: #f6f7f8 !important;
+}
+.nav-link:hover {
+    color: #e6efe9 !important;
+}
+#nav-title {
     color: #f6f7f8;
 }

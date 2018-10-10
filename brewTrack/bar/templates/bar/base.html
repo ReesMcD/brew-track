@@ -16,11 +16,13 @@
 
 <body>
     <nav class="uk-navbar-container" uk-navbar>
-        <h1>brewTrack</h1>
+        <h1 id="nav-title"><a class="nav-link" href="/">brewTrack</a></h1>
         <div class="uk-navbar-right">
 
             <ul class="uk-navbar-nav">
-                <li class="uk-active"><a href="#">Login</a></li>
+                <li class="uk-parent">
+                    <a class="nav-link" href="#">Login</a>
+                </li>
                 <!-- <li>
                     <a href="#">Parent</a>
                     <div class="uk-navbar-dropdown">
@@ -32,9 +34,7 @@
                     </div>
                 </li> -->
             </ul>
-
         </div>
-
     </nav>
 
     {% block content %}

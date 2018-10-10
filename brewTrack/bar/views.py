@@ -12,7 +12,7 @@ def index(request):
 
     return render(request, 'bar/index.html', context)
 
-def bar(request, bar_id):
+def bar_page(request, bar_id):
     bar = get_object_or_404(Bar, pk=bar_id)
     response = "You're looking at bar %s."
 

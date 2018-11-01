@@ -35,7 +35,7 @@ class Item(models.Model):
 class Event(models.Model):
     name = models.CharField(max_length=20, default='unknown')
     type = models.CharField(max_length=20, default='unknown')
-    # description = models.CharField(max_length=100, default='unknown')
+    description = models.CharField(max_length=100, default='unknown')
     date = models.DateTimeField('date published')
     ticket = models.BooleanField(default=False)
     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)

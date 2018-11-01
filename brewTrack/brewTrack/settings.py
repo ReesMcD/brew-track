@@ -22,13 +22,6 @@ with open('config.json', 'r') as f:
 
 db_config = config['DB_CONFIG']
 
-DATABASE_CONFIG = {
-    'host': 'localhost',
-    'name': 'brewTrack',
-    'user': 'rees',
-    'password': 'root',
-}
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/

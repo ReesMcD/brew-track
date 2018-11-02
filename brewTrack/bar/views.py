@@ -16,12 +16,18 @@ def bar_page(request, bar_id):
     bar = get_object_or_404(Bar, pk=bar_id)
     menu = Menu.objects.get(bar=bar_id)
     items = Item.objects.filter(menu=menu.id)
+    menuList = []
+
+    for item in items:
+        drink = Drink.objects.get(pk=item.drink.id)
+        menuList.append({'name':drink.name, 'price': item.price})
+
     response = "You're looking at bar %s."
 
     context = {
         'bar': bar,
         'menu': menu,
-        'items': items
+        'menuList': menuList,
     }
 
     return render(request, 'bar/bar_page.html', context)

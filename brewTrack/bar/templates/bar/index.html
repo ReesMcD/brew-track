@@ -1,15 +1,14 @@
 {% extends "bar/base.html" %}
 
 {% block content %}
-<h2>Local Bars</h2>
-{% if bar_list %}
-    <ul>
-    {% for bar in bar_list %}
-        <li><a href="{% url 'bar:bar' bar.id %}">{{ bar.name }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-<p>No bars :(</p>
-{% endif %}
-
+        <h2>Local Bars</h2>
+        {% if bar_list %}
+            <ul>
+            {% for bar in bar_list %}
+                <li><a href="{% url 'bar:bar' bar.id %}">{{ bar.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+        <p>No bars :(</p>
+        {% endif %}
 {% endblock content %}

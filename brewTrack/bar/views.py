@@ -14,8 +14,8 @@ def index(request):
 
 def bar_page(request, bar_id):
     bar = get_object_or_404(Bar, pk=bar_id)
-    # menu = Menu.objects.get(bar=bar_id)
-    # item = Item.objects.filter(menu=menu.id)
+    menu = Menu.objects.get(bar=bar_id)
+    item = Item.objects.filter(menu=menu.id)
     response = "You're looking at bar %s."
 
     context = {

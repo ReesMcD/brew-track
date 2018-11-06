@@ -38,4 +38,13 @@ def bar_page(request, bar_id):
     return render(request, 'bar/bar_page.html', context)
 
 def next(request, bar_id):
-    return HttpResponse("You're look at another page for %s." % bar_id)
+    return HttpResponse("You're looking at another page for %s." % bar_id)
+
+def pos(request, bar_id):
+    bar = get_object_or_404(Bar, pk=bar_id)
+
+    context = {
+        'bar': bar,
+    }
+
+    return render(request, 'bar/pos.html', context)

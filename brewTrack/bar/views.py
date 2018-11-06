@@ -26,7 +26,6 @@ def bar_page(request, bar_id):
         'size': item.size,
         'location': drink.location,
         })
->>>>>>> d2e915382aaa8d3096ef8890c4579b8c119690b8
 
     response = "You're looking at bar %s."
 

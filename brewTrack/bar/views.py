@@ -20,7 +20,12 @@ def bar_page(request, bar_id):
 
     for item in items:
         drink = Drink.objects.get(pk=item.drink.id)
-        menuList.append({'name':drink.name, 'price': item.price})
+        menuList.append({
+        'name':drink.name,
+        'price':item.price,
+        'size': item.size,
+        'location': drink.location,
+        })
 
     response = "You're looking at bar %s."
 

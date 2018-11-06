@@ -3,7 +3,7 @@
 
 <head>
     {% if bar %}
-    <title>BrewTrack - {{ bar.name }}</title>
+    <title>{{ bar.name }} | BrewTrack</title>
     {% else %}
     <title>BrewTrack</title>
     {% endif %}
@@ -37,8 +37,12 @@
         </div>
     </nav>
 
-    {% block content %}
-    {% endblock content %}
+    <div id="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.17/js/uikit.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.17/js/uikit-icons.min.js"></script>

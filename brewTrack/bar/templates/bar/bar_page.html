@@ -1,17 +1,25 @@
 {% extends "bar/base.html" %}
 {% block content %}
 
-<h1>{{menu.name}}</h1>
+<h1>{{ bar.name }}</h1>
 <p>Welcome to the {{ bar.name }} brewTrack page!</p>
+<h2>{{menu.name}}</h2>
 
 
-<div class="uk-grid-large uk-child-width-expand@s uk-text-center" uk-grid>
+
+<div class="uk-grid-small uk-child-width-1-4@s uk-flex-left uk-text-center" uk-grid>
 {% for item in menuList %}
-    <div class="uk-card uk-card-default uk-card-body">
-        {{item.name}} | ${{item.price}}
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <div>
+                {{item.name}} | ${{item.price}}
+            </div>
+            <div>
+                {{item.location}} | {{item.size}} oz
+            </div>
+        </div>
     </div>
 {% endfor %}
 </div>
-
 
 {% endblock content %}

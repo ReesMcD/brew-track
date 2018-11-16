@@ -15,10 +15,14 @@ a, u {
 }
 #nav-title {
     color: #f6f7f8;
+    margin: 10px 10px;
 }
 #title-link {
   color: #f6f7f8;
 }
 #title-link:hover {
     color: #f6f7f8;
+}
+#block-content {
+    margin: 20px 20px;
 }

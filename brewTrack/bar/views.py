@@ -25,6 +25,8 @@ def bar_page(request, bar_id):
         'price':item.price,
         'size': item.size,
         'location': drink.location,
+        'total_amount': item.total_amount,
+        'current_amount' : item.current_ammount,
         })
 
     response = "You're looking at bar %s."

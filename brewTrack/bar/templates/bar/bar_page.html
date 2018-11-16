@@ -5,9 +5,7 @@
 <p>Welcome to the {{ bar.name }} brewTrack page!</p>
 <h2>{{menu.name}}</h2>
 
-
-
-<div class="uk-grid-small uk-child-width-1-4@s uk-flex-left uk-text-center" uk-grid>
+<div class="uk-grid-match uk-grid-small uk-child-width-1-4@m uk-flex-left uk-text-center" uk-grid>
 {% for item in menuList %}
     <div>
         <div class="uk-card uk-card-default uk-card-body">
@@ -17,6 +15,7 @@
             <div>
                 {{item.location}} | {{item.size}} oz
             </div>
+            <progress class="uk-progress" value="{{item.current_amount}}" max="{{item.total_amount}}"></progress>
         </div>
     </div>
 {% endfor %}

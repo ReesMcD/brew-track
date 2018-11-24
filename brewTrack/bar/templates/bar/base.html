@@ -21,13 +21,17 @@
 
             <ul class="uk-navbar-nav">
                 {% if user.is_authenticated %}
-                <li class="uk-parent">
+
+                <li>
                     <a class="nav-link" href="#">{{ request.user }}</a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="#">Profile</a></li>
+                            <li class="uk-active"><a href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
                 </li>
 
-                <li class="uk-parent">
-                    <a class="nav-link" href="/logout">Logout</a>
-                </li>
                 {% else %}
                 <li class="uk-parent">
                     <a class="nav-link" href="/login">Login</a>

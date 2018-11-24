@@ -3,22 +3,40 @@
 
 <h1>{{ bar.name }}</h1>
 <p>Welcome to the {{ bar.name }} brewTrack page!</p>
-<h2>{{menu.name}}</h2>
 
-<div class="uk-grid-match uk-grid-small uk-child-width-1-4@m uk-flex-left uk-text-center" uk-grid>
-{% for item in menuList %}
-    <div>
-        <div class="uk-card uk-card-default uk-card-body">
-            <div>
-                {{item.name}} | ${{item.price}}
+{% if user.is_authenticated %}
+<h2>{{menu.name}} <a href="#" uk-icon="cog"></a></h2>
+{% else %}
+<h2>{{menu.name}}</h2>
+{% endif %}
+
+<div uk-filter="target: .js-filter">
+
+    <ul class="uk-subnav uk-subnav-pill">
+        <li class="uk-active" uk-filter-control><a href="#">All</a></li>
+        {% for type in typeList%}
+            <li uk-filter-control=".tag-{{type}}"><a href="#">{{type}}</a></li>
+        {% endfor %}
+    </ul>
+
+    <div class="js-filter uk-grid-match uk-grid-small uk-child-width-1-4@m uk-flex-left" uk-grid>
+    {% for item in menuList %}
+        <div class="tag-{{item.type}}">
+            <div class="uk-card uk-card-default uk-card-body">
+                <h3 class="uk-card-title">{{item.name}}</h3>
+                <div>{{item.type}}</div>
+                <div>
+                    ${{item.price}} | {{item.size}} oz
+                </div>
+                <div>
+                    <span uk-icon="location"></span> {{item.location}}
+                </div>
+                <progress class="uk-progress" value="{{item.current_amount}}" max="{{item.total_amount}}"></progress>
             </div>
-            <div>
-                {{item.location}} | {{item.size}} oz
-            </div>
-            <progress class="uk-progress" value="{{item.current_amount}}" max="{{item.total_amount}}"></progress>
         </div>
+    {% endfor %}
     </div>
-{% endfor %}
+
 </div>
 
 {% endblock content %}

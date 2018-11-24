@@ -22,6 +22,7 @@ class BarPage(DetailView):
        context = super(BarPage, self).get_context_data(**kwargs)
        menu = Menu.objects.get(bar=self.get_object())
        menuList = []
+       typeList = {}
        items = Item.objects.filter(menu=menu.id)
 
        for item in items:
@@ -36,8 +37,12 @@ class BarPage(DetailView):
            'type' : drink.type,
            })
 
+           if drink.type not in typeList:
+               typeList[drink.type] = drink.type
+
        context['menu'] = menu
        context['menuList'] = menuList
+       context['typeList'] = typeList
        return context
 
 # This is a Test Page

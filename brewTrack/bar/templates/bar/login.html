@@ -1,12 +1,12 @@
 {% extends "bar/base.html" %}
 {% block content %}
 
-<h1>Create A New Account</h1>
+<h1>Login</h1>
 
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">Register</button>
+    <button type="submit" value="login">Login</button>
 </form>
 
 {% endblock content %}

@@ -1,13 +1,17 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, DetailView, TemplateView, ListView
 from django.template import loader
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from bar.forms import *
 from .models import *
 
 class Index(ListView):
     model = Bar
     template_name = 'bar/index.html'
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 class BarPage(DetailView):
     model = Bar

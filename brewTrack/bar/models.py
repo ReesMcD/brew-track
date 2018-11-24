@@ -39,12 +39,3 @@ class Event(models.Model):
     date = models.DateTimeField('date published')
     ticket = models.BooleanField(default=False)
     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)
-
-# user model
-# username
-# password
-# admin list
-# class User(models.Model):
-#     username = models.CharField(max_length=20, default='unknown')
-#     password = models.CharField(max_length=20, default='unknown')
-#     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)

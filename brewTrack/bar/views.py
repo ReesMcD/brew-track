@@ -55,22 +55,29 @@ class PointOfSales(DetailView):
        context = super(PointOfSales, self).get_context_data(**kwargs)
        return context
 
-class Login(TemplateView):
+class Register(TemplateView):
     # form_class = LoginForm()
-    template_name = 'bar/login.html'
+    template_name = 'bar/register.html'
 
     def get(self, request):
-        form = LoginForm()
+        form = RegisterForm()
         return render(request, self.template_name, {'form' : form})
 
     def post(self, request):
-        form = LoginForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             user.set_password(password)
             user.save()
-            return redirect('/')
+
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('/')
+
 
         return render(request, self.template_name, {'form' : form})

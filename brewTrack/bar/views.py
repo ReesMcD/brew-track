@@ -40,8 +40,10 @@ class BarPage(DetailView):
            if drink.type not in typeList:
                typeList[drink.type] = drink.type
 
+    # Orders menuList alphabetically
+       orderedMenuList = sorted(menuList, key=lambda k: k['name'])
        context['menu'] = menu
-       context['menuList'] = menuList
+       context['menuList'] = orderedMenuList
        context['typeList'] = typeList
        return context
 

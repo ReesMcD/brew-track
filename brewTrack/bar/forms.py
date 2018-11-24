@@ -2,16 +2,42 @@ from django.contrib.auth.models import User
 from django import forms
 
 class RegisterForm(forms.ModelForm):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'uk-input',
+            'placeholder' : 'username',
+        }
+    ))
+    email = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'uk-input',
+            'placeholder' : 'email',
+        }
+    ))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'uk-input',
+            'placeholder' : 'password',
+        }
+    ))
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password', ]
 
 class LoginForm(forms.Form ):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'uk-input',
+            'placeholder' : 'username',
+        }
+    ))
+    password = forms.CharField(widget=forms.PasswordInput(
+        attrs={
+            'class': 'uk-input',
+            'placeholder' : 'password',
+        }
+    ))
 
     class Meta:
         model = User

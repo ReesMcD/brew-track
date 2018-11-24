@@ -5,7 +5,9 @@
 
 <form method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    {{form.username}}
+    {{form.email}}
+    {{form.password}}
     <button type="submit">Register</button>
 </form>
 

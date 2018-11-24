@@ -1,52 +1,76 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import View, DetailView, TemplateView, ListView
 from django.template import loader
-from django.http import HttpResponse
-from .models import Bar, Menu, Item, Drink
+from django.contrib.auth import authenticate, login
+from bar.forms import *
+from .models import *
 
-def index(request):
-    bar_list = Bar.objects.order_by('id')
+class Index(ListView):
+    model = Bar
+    template_name = 'bar/index.html'
 
-    context = {
-        'bar_list': bar_list,
-    }
+class BarPage(DetailView):
+    model = Bar
+    slug_field = 'pk'
+    template_name = 'bar/bar_page.html'
 
-    return render(request, 'bar/index.html', context)
+    def get_context_data(self, **kwargs):
+       context = super(BarPage, self).get_context_data(**kwargs)
+       menu = Menu.objects.get(bar=self.get_object())
+       menuList = []
+       items = Item.objects.filter(menu=menu.id)
 
-def bar_page(request, bar_id):
-    bar = get_object_or_404(Bar, pk=bar_id)
-    menu = Menu.objects.get(bar=bar_id)
-    items = Item.objects.filter(menu=menu.id)
-    menuList = []
+       for item in items:
+           drink = Drink.objects.get(pk=item.drink.id)
+           menuList.append({
+           'name':drink.name,
+           'price':item.price,
+           'size': item.size,
+           'location': drink.location,
+           'total_amount': item.total_amount,
+           'current_amount' : item.current_ammount,
+           'type' : drink.type,
+           })
 
-    for item in items:
-        drink = Drink.objects.get(pk=item.drink.id)
-        menuList.append({
-        'name':drink.name,
-        'price':item.price,
-        'size': item.size,
-        'location': drink.location,
-        'total_amount': item.total_amount,
-        'current_amount' : item.current_ammount,
-        })
+       context['menu'] = menu
+       context['menuList'] = menuList
+       return context
 
-    response = "You're looking at bar %s."
+# This is a Test Page
+class NextBarPage(DetailView):
+    model = Bar
+    slug_field = 'pk'
+    template_name = 'bar/next.html'
 
-    context = {
-        'bar': bar,
-        'menu': menu,
-        'menuList': menuList,
-    }
+    def get_context_data(self, **kwargs):
+       context = super(NextBarPage, self).get_context_data(**kwargs)
+       return context
 
-    return render(request, 'bar/bar_page.html', context)
+class PointOfSales(DetailView):
+    model = Bar
+    slug_field = 'pk'
+    template_name = 'bar/pos.html'
 
-def next(request, bar_id):
-    return HttpResponse("You're looking at another page for %s." % bar_id)
+    def get_context_data(self, **kwargs):
+       context = super(PointOfSales, self).get_context_data(**kwargs)
+       return context
 
-def pos(request, bar_id):
-    bar = get_object_or_404(Bar, pk=bar_id)
+class Login(TemplateView):
+    # form_class = LoginForm()
+    template_name = 'bar/login.html'
 
-    context = {
-        'bar': bar,
-    }
+    def get(self, request):
+        form = LoginForm()
+        return render(request, self.template_name, {'form' : form})
 
-    return render(request, 'bar/pos.html', context)
+    def post(self, request):
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user.set_password(password)
+            user.save()
+            return redirect('/')
+
+        return render(request, self.template_name, {'form' : form})

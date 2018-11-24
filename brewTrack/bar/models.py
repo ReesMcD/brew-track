@@ -44,6 +44,7 @@ class Event(models.Model):
 # username
 # password
 # admin list
-class User(models.Model):
-    name = models.CharField(max_length=20, default='unknown')
-    bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)
+# class User(models.Model):
+#     username = models.CharField(max_length=20, default='unknown')
+#     password = models.CharField(max_length=20, default='unknown')
+#     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)

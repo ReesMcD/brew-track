@@ -9,6 +9,7 @@ class Index(ListView):
     model = Bar
     template_name = 'bar/index.html'
 
+# Kept this a Functinon based view for simplicity
 def logout_view(request):
     logout(request)
     return redirect('/')

@@ -39,7 +39,7 @@ class Item(models.Model):
         return reverse('bar:bar', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return self.name
+        return self.menu.name + " - " + self.name
 
 #Event model
 class Event(models.Model):

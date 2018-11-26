@@ -2,55 +2,69 @@
 
 {% block content %}
 <style>
-  /* Always set the map height explicitly to define the size of the div
-   * element that contains the map. */
-  #map {
-    height: 75%;
-    width: 100%;
-  }
-  /* Optional: Makes the sample page fill the window. */
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+    #map {
+        margin-top: 25px;
+        height: 60vh;
+        width: 100%;
+    }
 </style>
-<div class="uk-grid-small uk-child-width-1-2@s uk-flex-left uk-text-center" uk-grid>
-  <div>
-    <h2>Local Bars</h2>
-    {% if bar_list %}
-        <ul>
-        {% for bar in bar_list %}
-            <a href="{% url 'bar:bar' bar.id %}">
-                <div class= "uk-child-width-1-1 uk-text-center">
-                    <div class="uk-card uk-card-default uk-card-body">{{ bar.name }}</a></div>
+<div class="uk-grid-small uk-grid-match uk-child-width-1-2@m" uk-grid>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <div class="uk-card-header">
+                <h1 class="uk-card-title uk-margin-remove-bottom">Local Bars</h1>
+            </div>
+
+                <div class="scrollable">
+                    {% if bar_list %}
+                    <ul class="uk-list uk-list-divider">
+                        {% for bar in bar_list %}
+                        <li class="uk-animation-fade">
+                            <h3 class="uk-margin-top">
+                                <a href="{% url 'bar:bar' bar.id %}">{{ bar.name }}</a>
+                            </h3>
+                            <div><span uk-icon="location"></span>{{bar.location}}</div>
+                            <div><span uk-icon="calendar"></span>{{bar.hours}}</div>
+                        </li>
+                        <br />
+
+                        {% endfor %}
+                    </ul>
+
+                    {% else %}
+                    <p>No bars :(</p>
+                    {% endif %}
                 </div>
-                <br>
-        {% endfor %}
-        </ul>
 
-    {% else %}
-    <p>No bars :(</p>
-    {% endif %}
-  </div>
+        </div>
+    </div>
 
-  <div>
-    <h2>Maps</h2>
-    <div id="map"></div>
-  </div>
+    <div>
+        <div class="uk-card uk-card-default uk-card-body">
+            <div class="uk-card-header">
+                <h1 class="uk-card-title">Map</h1>
+            </div>
+            <div id="map" class="uk-animation-fade"></div>
+        </div>
+    </div>
+
 
 </div>
-    <script>
-      var map;
-      function initMap() {
+
+<script>
+    var map;
+
+    function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
+            center: {
+                lat: -34.397,
+                lng: 150.644
+            },
+            zoom: 8
         });
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrYhIEAW2IrOyYqUhXbqWBD8ascwxyWXo&callback=initMap"
-      async defer></script>
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrYhIEAW2IrOyYqUhXbqWBD8ascwxyWXo&callback=initMap" async defer></script>
 
 <!-- AIzaSyBrYhIEAW2IrOyYqUhXbqWBD8ascwxyWXo -->
 

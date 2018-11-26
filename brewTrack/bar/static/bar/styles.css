@@ -4,12 +4,44 @@
 a, u {
     text-decoration: none !important;
 }
+span {
+  margin-right: 5px !important;
+  margin-left: 2px !important;
+}
+
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#content {
+  flex: 1;
+}
+#footer {
+  text-align: center;
+  font-size: 12px;
+}
+#logo {
+  margin-top: -10px;
+  margin-right: 10px;
+}
+
 /* Website Base */
 .uk-navbar-container {
-    background-color: #1D87F0 !important;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1d87f0+0,4ba2e5+100 */
+background: #1d87f0 !important; /* Old browsers */
+background: -moz-linear-gradient(left, #1d87f0 0%, #4ba2e5 100%) !important; /* FF3.6-15 */
+background: -webkit-linear-gradient(left, #1d87f0 0%,#4ba2e5 100%) !important; /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right, #1d87f0 0%,#4ba2e5 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d87f0', endColorstr='#4ba2e5',GradientType=1 ) !important; /* IE6-9 */
 }
 .nav-link {
     color: #f6f7f8 !important;
+    font-size: 16px !important;
+    margin-right: 15px;
 }
 .nav-link:hover {
     color: #BEBEBE !important;
@@ -24,10 +56,26 @@ a, u {
   color: #f6f7f8;
 }
 #title-link:hover {
-    color: #f6f7f8;
+  color: #f6f7f8;
 }
 #block-content {
     margin: 20px 20px;
+}
+
+#page-footer {
+  text-align: center;
+}
+
+h1.uk-card-title {
+  font-size: 36px;
+  margin-top: -25px !important;
+  margin-left: -25px;
+}
+
+.scrollable {
+  width: 100%;
+  height: 62.5vh;
+  overflow: scroll;
 }
 
 /* Login Classes */
@@ -47,4 +95,13 @@ a, u {
 .login-secondary {
   margin-top: 10px;
   margin-right: 15px;
+}
+#item-add {
+  margin-left: 2px;
+}
+.item-size {
+  color: #696969 !important;
+  margin-top: 25px;
+  margin-left: 10px;
+  font-size: 14px !important;
 }

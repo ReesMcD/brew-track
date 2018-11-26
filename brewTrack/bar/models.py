@@ -5,16 +5,16 @@ import datetime
 class Bar(models.Model):
     name = models.CharField(max_length=20)
     pub_date = models.DateTimeField('date published')
-    location = models.CharField(max_length=100, default='unknown')
-    hours = models.CharField(max_length=50, default='unknown')
+    location = models.CharField(max_length=100, default='')
+    hours = models.CharField(max_length=50, default='')
 
     def __str__(self):
         return self.name
 
 #Menu Model
 class Menu(models.Model):
-    name = models.CharField(max_length=20, default='unknown')
     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=20, default="%s Menu" % bar.name)
 
     def __str__(self):
         return self.name
@@ -43,12 +43,13 @@ class Item(models.Model):
 
 #Event model
 class Event(models.Model):
-    name = models.CharField(max_length=20, default='unknown')
-    type = models.CharField(max_length=20, default='unknown')
-    description = models.CharField(max_length=100, default='unknown')
-    date = models.DateTimeField('date published')
+    name = models.CharField(max_length=20, default='')
+    type = models.CharField(max_length=20, default='')
+    description = models.CharField(max_length=100, default='', blank=True)
+    date = models.CharField('Event Date', max_length=20, default='')
+    frequancy = models.CharField('Frequancy', max_length=500, default='', blank=True)
     ticket = models.BooleanField(default=False)
     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
-        return self.name
+        return self.bar.name + " - " + self.name

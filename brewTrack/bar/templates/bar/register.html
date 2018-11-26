@@ -7,18 +7,11 @@
 
     <form method="post">
         {% csrf_token %}
-        {% csrf_token %}
-        {{form.username}}
-        {{form.email}}
-        {{form.password}}
-        <button id="login-button" class="uk-button uk-button-primary" type="submit" value="login">Register</button>
+        {% include 'bar/login_form_temp.html'%}
+        <button class="uk-button uk-button-primary" type="submit" value="login">Register</button>
         <a class="uk-align-right login-secondary" href="{% url 'bar:login'%}">Already Have an Account?</a>
     </form>
 
-
-
-
 </div>
-
 
 {% endblock content %}

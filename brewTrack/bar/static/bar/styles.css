@@ -4,6 +4,7 @@
 a, u {
     text-decoration: none !important;
 }
+/* Website Base */
 .uk-navbar-container {
     background-color: #1D87F0 !important;
 }
@@ -14,8 +15,10 @@ a, u {
     color: #BEBEBE !important;
 }
 #nav-title {
+    font-size: 32px !important;
     color: #f6f7f8;
-    margin: 10px 10px;
+    padding-top: 25px;
+    padding-left: 25px;
 }
 #title-link {
   color: #f6f7f8;
@@ -26,19 +29,22 @@ a, u {
 #block-content {
     margin: 20px 20px;
 }
+
+/* Login Classes */
 .text-input {
     width: 100%;
     margin-bottom: 25px;
 }
-
+.text-check {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  width: 20px;
+  height: 20px;
+}
 .login-card {
   margin-top: 50px;
 }
-
 .login-secondary {
   margin-top: 10px;
   margin-right: 15px;
-}
-#login-button {
-  /* margin-right: 50% !important; */
 }

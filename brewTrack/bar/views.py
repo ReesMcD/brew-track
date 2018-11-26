@@ -1,9 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, DetailView, TemplateView, ListView
 from django.template import loader
+from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from bar.forms import *
 from .models import *
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Index(ListView):
     model = Bar
@@ -14,39 +18,50 @@ def logout_view(request):
     logout(request)
     return redirect('/')
 
-class BarPage(DetailView):
-    model = Bar
-    slug_field = 'pk'
+# Bar Page and Form
+class BarPage(TemplateView):
     template_name = 'bar/bar_page.html'
+    slug_field = 'pk'
 
-    def get_context_data(self, **kwargs):
-       context = super(BarPage, self).get_context_data(**kwargs)
-       menu = Menu.objects.get(bar=self.get_object())
-       menuList = []
-       typeList = {}
-       items = Item.objects.filter(menu=menu.id)
+    def get(self, request, pk):
+        form = BarPageForm()
+        bar = get_object_or_404(Bar, pk=pk)
+        menu = Menu.objects.get(bar=pk)
+        typeList = {}
+        subList = {}
+        items = Item.objects.filter(menu=menu.id).order_by('name')
 
-       for item in items:
-           drink = Drink.objects.get(pk=item.drink.id)
-           menuList.append({
-           'name':drink.name,
-           'price':item.price,
-           'size': item.size,
-           'location': drink.location,
-           'total_amount': item.total_amount,
-           'current_amount' : item.current_ammount,
-           'type' : drink.type,
-           })
+        for item in items:
+          if item.type not in typeList:
+              typeList[item.type] = item.type
 
-           if drink.type not in typeList:
-               typeList[drink.type] = drink.type
+          if item.subtype not in subList:
+             subList[item.subtype] = item.subtype
 
-    # Orders menuList alphabetically
-       orderedMenuList = sorted(menuList, key=lambda k: k['name'])
-       context['menu'] = menu
-       context['menuList'] = orderedMenuList
-       context['typeList'] = typeList
-       return context
+        context = {
+            'form' : form,
+            'bar' : bar,
+            'menu' : menu,
+            'menuList' : items,
+            'typeList' : typeList,
+            'subList' : sorted(subList)
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        form = BarPageForm(request.POST)
+        bar = get_object_or_404(Bar, pk=pk)
+        menu = Menu.objects.get(bar=pk)
+
+        if form.is_valid():
+            item = form.save(commit=False)
+            item.current_amount = item.total_amount
+            item.menu = menu
+            item.save()
+            return redirect('/bar/' + pk)
+
+        return render(request, self.template_name, {'form' : form})
 
 # This is a Test Page
 class NextBarPage(DetailView):
@@ -79,7 +94,6 @@ class Login(TemplateView):
         if form.is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-
             user = authenticate(username=username, password=password)
 
             if user is not None:
@@ -90,7 +104,6 @@ class Login(TemplateView):
         return render(request, self.template_name, {'form' : form})
 
 class Register(TemplateView):
-    # form_class = LoginForm()
     template_name = 'bar/register.html'
 
     def get(self, request):
@@ -105,13 +118,11 @@ class Register(TemplateView):
             password = form.cleaned_data['password']
             user.set_password(password)
             user.save()
-
             user = authenticate(username=username, password=password)
 
             if user is not None:
                 if user.is_active:
                     login(request, user)
                     return redirect('/')
-
 
         return render(request, self.template_name, {'form' : form})

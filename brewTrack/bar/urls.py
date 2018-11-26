@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^login', Login.as_view(), name='login'),
     url(r'^logout', views.logout_view, name="logout"),
     url(r'^bar/(?P<pk>[0-9]+)/$', BarPage.as_view(), name='bar'),
+    # url(r'^bar/(?P<pk>[0-9]+)/edit/$', BarPageEdit.as_view(), name='bar_edit'),
     url(r'^bar/(?P<pk>[0-9]+)/next/$', NextBarPage.as_view(), name='next'),
     url(r'^bar/(?P<pk>[0-9]+)/pos/$', PointOfSales.as_view(), name='pos'),
 ]

@@ -7,16 +7,11 @@
 
     <form method="post">
         {% csrf_token %}
-        {{form.username}}
-        {{form.password}}
-        <button id="login-button" class="uk-button uk-button-primary" type="submit" value="login">Login</button>
+        {% include 'bar/login_form_temp.html'%}
+        <button class="uk-button uk-button-primary" type="submit" value="login">Login</button>
         <a class="uk-align-right login-secondary" href="{% url 'bar:register'%}">Sign Up</a>
     </form>
 
-
-
-
 </div>
-
 
 {% endblock content %}

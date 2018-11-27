@@ -8,8 +8,8 @@
     <form method="post">
         {% csrf_token %}
         {% include 'bar/form_temp.html'%}
-        <button class="uk-button uk-button-primary" type="submit" value="login">Login</button>
-        <a class="uk-align-right login-secondary" href="{% url 'bar:register'%}">Sign Up</a>
+        <a class="uk-align-left login-secondary" href="{% url 'bar:register'%}">Sign Up</a>
+        <button class="uk-align-right uk-button uk-button-primary" type="submit" value="login">Login</button>
     </form>
 
 </div>

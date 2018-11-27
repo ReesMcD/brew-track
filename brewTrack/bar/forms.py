@@ -26,7 +26,7 @@ class LoginForm(forms.Form):
         fields = ['username', 'password']
 
 
-class BarPageForm(forms.ModelForm):
+class ItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
           super().__init__(*args, **kwargs)
           self.fields['total_amount'].label = "Keg Size (oz)"

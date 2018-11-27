@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.urls import reverse
 
 # Bar Model
 class Bar(models.Model):
@@ -34,9 +35,6 @@ class Item(models.Model):
     current_amount = models.IntegerField(null=True, blank=True)
     alcholic_content = models.DecimalField(decimal_places=2, max_digits=3, null=True, blank=True)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True)
-
-    def get_absolute_url(self):
-        return reverse('bar:bar', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.menu.name + " - " + self.name

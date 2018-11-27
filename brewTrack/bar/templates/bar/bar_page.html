@@ -26,7 +26,7 @@
                     <p>{{ event.name }} - {{event.date}}</p>
                 {% endfor %}
             </div>
-        </div>    
+        </div>
     </div>
 
 
@@ -34,36 +34,11 @@
 
 <h2>Menu
     {% if user.is_authenticated %}
-    <a id="item-add" uk-icon="plus" href="#add-item" uk-toggle></a>
+    <a id="item-add" uk-icon="plus" href="{% url 'bar:create_item' bar.id %}"></a>
     {% endif %}
 </h2>
 
-{# Form of adding a new item to a menu #}
-<div id="add-item" uk-modal>
-    <div class="uk-modal-dialog">
-        <button class="uk-modal-close-default" type="button" uk-close></button>
-        <div class="uk-modal-header">
-            <h2 class="uk-modal-title">Add Item</h2>
-        </div>
-
-        <form method="post" action="">
-            {% csrf_token %}
-            <div class="uk-modal-body">
-
-                {% include 'bar/form_temp.html'%}
-
-            </div>
-            <div class="uk-modal-footer uk-text-right">
-                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                <button class="uk-button uk-button-primary" type="submit">Save</button>
-            </div>
-        </form>
-
-    </div>
-</div>
-
 <div uk-filter="target: .js-filter">
-
     <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
         <div>
             <ul class="uk-subnav uk-subnav-pill" uk-margin>
@@ -95,7 +70,7 @@
         <div data-tags="{{item.type}} {{item.subtype}}">
             <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-animation-fade">
                 {% if user.is_authenticated %}
-                <a class="uk-card-badge" uk-icon="settings" href="#edit-item-{{item.id}}" uk-toggle></a>
+                <a class="uk-card-badge" uk-icon="settings" href="{% url 'bar:update_item' item.id%}"></a>
                 {% endif %}
                 <div class="uk-flex uk-flex-middle">
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{item.name}}</h3>
@@ -116,24 +91,6 @@
                 {% endif %}
             </div>
         </div>
-
-        {# Form for editing an item #}
-        <div id="edit-item-{{item.id}}" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Edit {{item.name}}</h2>
-                </div>
-                <div class="uk-modal-body">
-                    <p>Form for editing {{item.name}} will be here</p>
-                </div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                    <button class="uk-button uk-button-primary" type="button">Save</button>
-                </div>
-            </div>
-        </div>
-
         {% endfor %}
     </div>
 

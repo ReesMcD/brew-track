@@ -1,9 +1,9 @@
 from django.db import models
-import datetime
+from datetime import datetime
 
 # Bar Model
 class Bar(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
     pub_date = models.DateTimeField('date published')
     location = models.CharField(max_length=100, default='')
     hours = models.CharField(max_length=50, default='')
@@ -14,7 +14,7 @@ class Bar(models.Model):
 #Menu Model
 class Menu(models.Model):
     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=20, default="%s Menu" % bar.name)
+    name = models.CharField(max_length=100, default="%s Menu" % bar.name)
 
     def __str__(self):
         return self.name
@@ -46,7 +46,8 @@ class Event(models.Model):
     name = models.CharField(max_length=20, default='')
     type = models.CharField(max_length=20, default='')
     description = models.CharField(max_length=100, default='', blank=True)
-    date = models.CharField('Event Date', max_length=20, default='')
+    date = models.DateTimeField("Event Date",default=datetime.now, blank=True)
+    reoccuring = models.BooleanField(default=True)
     frequancy = models.CharField('Frequancy', max_length=500, default='', blank=True)
     ticket = models.BooleanField(default=False)
     bar = models.ForeignKey(Bar, on_delete=models.CASCADE, null=True)

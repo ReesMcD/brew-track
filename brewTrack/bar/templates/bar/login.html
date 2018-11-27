@@ -7,7 +7,7 @@
 
     <form method="post">
         {% csrf_token %}
-        {% include 'bar/login_form_temp.html'%}
+        {% include 'bar/form_temp.html'%}
         <button class="uk-button uk-button-primary" type="submit" value="login">Login</button>
         <a class="uk-align-right login-secondary" href="{% url 'bar:register'%}">Sign Up</a>
     </form>

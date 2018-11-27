@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, DetailView, TemplateView, ListView
 from django.template import loader
+# from django.contrib.gis.utils import GeoIP
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from bar.forms import *
@@ -11,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 class Index(ListView):
     model = Bar
+    # Ordering Alphabetically
+    ordering = ['name']
     template_name = 'bar/index.html'
 
 # Kept this a Functinon based view for simplicity
@@ -30,6 +33,9 @@ class BarPage(TemplateView):
         typeList = {}
         subList = {}
         items = Item.objects.filter(menu=menu.id).order_by('name')
+        events = Event.objects.filter(bar=pk).order_by('date')
+
+
 
         for item in items:
           if item.type not in typeList:
@@ -42,6 +48,7 @@ class BarPage(TemplateView):
             'form' : form,
             'bar' : bar,
             'menu' : menu,
+            'events': events,
             'menuList' : items,
             'typeList' : typeList,
             'subList' : sorted(subList)

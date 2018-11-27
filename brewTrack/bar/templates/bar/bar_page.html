@@ -4,8 +4,39 @@
 <h1>{{ bar.name }}</h1>
 <p>Welcome to the {{ bar.name }} brewTrack page!</p>
 
-{% if user.is_authenticated %}
-<h2>{{menu.name}} <a id="item-add" uk-icon="plus" href="#add-item" uk-toggle></a></h2>
+{% if events %}
+
+    <h2>
+        Events
+        {% if user.is_authenticated %}
+        <a id="" uk-icon="cog" href="#"></a>
+        {% endif %}
+    </h2>
+    <div class=" uk-grid-match uk-grid-small uk-child-width-1-2@s" uk-grid>
+        <div class="">
+            <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-animation-fade">
+                <h3 class="uk-card-title uk-margin-remove-bottom uk-margin-remove-top">Next Event</h3>
+                <p>{{events.first.name}} - {{events.first.date}}</p>
+            </div>
+        </div>
+        <div class="">
+            <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-animation-fade">
+                <h3 class="uk-card-title uk-margin-remove-bottom uk-margin-remove-top">Upcoming Events</h3>
+                {% for event in events %}
+                    <p>{{ event.name }} - {{event.date}}</p>
+                {% endfor %}
+            </div>
+        </div>    
+    </div>
+
+
+{% endif %}
+
+<h2>Menu
+    {% if user.is_authenticated %}
+    <a id="item-add" uk-icon="plus" href="#add-item" uk-toggle></a>
+    {% endif %}
+</h2>
 
 {# Form of adding a new item to a menu #}
 <div id="add-item" uk-modal>
@@ -19,7 +50,7 @@
             {% csrf_token %}
             <div class="uk-modal-body">
 
-                {% include 'bar/item_form_temp.html'%}
+                {% include 'bar/form_temp.html'%}
 
             </div>
             <div class="uk-modal-footer uk-text-right">
@@ -30,10 +61,6 @@
 
     </div>
 </div>
-
-{% else %}
-<h2>{{menu.name}}</h2>
-{% endif %}
 
 <div uk-filter="target: .js-filter">
 

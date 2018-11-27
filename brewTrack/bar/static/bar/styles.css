@@ -4,6 +4,9 @@
 a, u {
     text-decoration: none !important;
 }
+div, a, h1, h2, h3, p {
+    font-weight: lighter;
+}
 span {
   margin-right: 5px !important;
   margin-left: 2px !important;
@@ -47,12 +50,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d87f0', end
     color: #696969 !important;
 }
 #nav-title {
+  font-weight: normal !important;
     font-size: 32px !important;
     color: #f6f7f8;
     padding-top: 25px;
     padding-left: 25px;
 }
 #title-link {
+  font-weight: normal !important;
   color: #f6f7f8;
 }
 #title-link:hover {
@@ -84,8 +89,6 @@ h1.uk-card-title {
     margin-bottom: 25px;
 }
 .text-check {
-  margin-top: 5px;
-  margin-bottom: 15px;
   width: 20px;
   height: 20px;
 }

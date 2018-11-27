@@ -70,7 +70,7 @@
         <div data-tags="{{item.type}} {{item.subtype}}">
             <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-animation-fade">
                 {% if user.is_authenticated %}
-                <a class="uk-card-badge" uk-icon="settings" href="{% url 'bar:update_item' item.id%}"></a>
+                <a class="uk-card-badge" uk-icon="settings" href="#item-settings-{{item.id}}" uk-toggle></a>
                 {% endif %}
                 <div class="uk-flex uk-flex-middle">
                     <h3 class="uk-card-title uk-margin-remove-bottom">{{item.name}}</h3>
@@ -91,8 +91,58 @@
                 {% endif %}
             </div>
         </div>
+
+{# Items Setting Modal #}
+        <div id="item-settings-{{item.id}}" uk-modal>
+            <div class="uk-modal-dialog">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">{{item.name}} Settings</h2>
+                </div>
+                <div class="uk-modal-body uk-card uk-card-body">
+                    <div class="">
+                        <div class="uk-flex uk-flex-middle">
+                            <h3 class="uk-card-titleuk-margin-remove-bottom">{{item.name}}</h3>
+                            <p class="item-size uk-card-title ">{{item.size}} oz.</p>
+                        </div>
+                        <div>{{item.subtype}}</div>
+                        <div>${{item.price}}</div>
+                        {% if item.location %}
+                        <div><span uk-icon="location"></span> {{item.location}}</div>
+                        {% endif %}
+                        {% if item.amount_flag %}
+                        <progress class="uk-progress" value="{{item.current_amount}}" min="0" max="{{item.total_amount}}"></progress>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="uk-modal-footer">
+                    <button class="uk-button uk-button-danger uk-align-right" type="button" type="button" uk-toggle="target: #item-delete-{{item.id}}">Delete</button>
+
+                    <a href="{% url 'bar:update_item' item.id%}">
+                        <button class="uk-button uk-button-primary uk-align-right" type="button">Edit</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+{# Are you sure Modal #}
+        <div id="item-delete-{{item.id}}" uk-modal>
+            <div class="uk-modal-dialog">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">{{item.name}} Are you sure?</h2>
+                </div>
+                <div class="uk-modal-footer">
+                    <button class="uk-button uk-button-danger uk-align-right" href="" type="button">Delete</button>
+                    <button class="uk-button uk-button-default uk-align-right uk-modal-close" type="button">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
         {% endfor %}
     </div>
+
+
 
 </div>
 

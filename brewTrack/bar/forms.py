@@ -60,3 +60,27 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['name', 'size', 'price', 'type', 'subtype', 'amount_flag', 'total_amount', 'location', 'alcholic_content']
+
+class EventForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+          super().__init__(*args, **kwargs)
+
+    name = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Name of Event',}))
+    type = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Band, Preformance, Special, etc.',}))
+    description = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Band, Preformance, Special, etc.',}))
+    date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'id':'datepicker','class': 'uk-input','type':"text",'placeholder' : 'Event Date',}))
+    reoccuring_flag = forms.BooleanField(
+        required=False, widget=forms.CheckboxInput(attrs={
+        'class': 'uk-checkbox text-check',}))
+    frequancy = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Sample: M 9pm-10pm, Th 10pm-2am',}))
+    ticket_flag = forms.BooleanField(
+        required=False, widget=forms.CheckboxInput(attrs={
+        'class': 'uk-checkbox text-check',}))
+
+    class Meta:
+        model = Event
+        fields = ['name', 'type', 'description', 'reoccuring_flag', 'frequancy', 'ticket_flag', 'date']

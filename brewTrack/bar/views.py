@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import View, DetailView, TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.template import loader
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from bar.forms import *
 from .models import *
@@ -32,7 +32,7 @@ class BarPage(DetailView):
         bar = get_object_or_404(Bar, pk=pk)
         menu = Menu.objects.get(bar=pk)
         items = Item.objects.filter(menu=menu.id).order_by('name')
-        events = Event.objects.filter(bar=pk).order_by('date')
+        events = Event.objects.filter(bar=pk).order_by('date')[:3]
 
         typeList = {}
         subList = {}
@@ -53,10 +53,10 @@ class BarPage(DetailView):
 
         return context
 
-
+# CRUD for Item
 class CreateItemPage(CreateView):
     form_class = ItemForm
-    template_name = 'bar/create_item_form.html'
+    template_name = 'bar/item_form.html'
 
     def get_context_data(self, **kwargs):
        context = super(CreateItemPage, self).get_context_data(**kwargs)
@@ -76,16 +76,72 @@ class CreateItemPage(CreateView):
         item.save()
         return redirect('/bar/' + pk)
 
-# Cant save but init view works
+
 class UpdateItemPage(UpdateView):
     model = Item
     form_class = ItemForm
-    template_name = 'bar/create_item_form.html'
+    template_name = 'bar/item_form.html'
 
     def form_valid(self, form):
        form.save()
-       # Change to redirct to last page
+       # TODO: Change to redirct to last page
        return redirect('/')
+
+class DeleteItemPage(DeleteView):
+    model = Item
+    # TODO: Change to redirct to last pagef
+    success_url = reverse_lazy('bar:index')
+
+# CRUD Events
+class CreateEventPage(CreateView):
+    form_class = EventForm
+    template_name = 'bar/event_form.html'
+
+    def get_context_data(self, **kwargs):
+       context = super(CreateEventPage, self).get_context_data(**kwargs)
+       pk = self.kwargs['pk']
+       bar = Bar.objects.get(pk=pk)
+       context['bar'] = bar
+       return context
+
+    def form_valid(self, form):
+        pk = self.kwargs['pk']
+        bar = Bar.objects.get(pk=pk)
+        event = form.save(commit=False)
+        event.bar = bar
+        event.save()
+        return redirect('/bar/' + pk)
+
+
+class EventPage(ListView):
+    model = Bar
+    # Ordering Alphabetically
+    ordering = ['date']
+    template_name = 'bar/events.html'
+
+    def get_context_data(self, **kwargs):
+       context = super(EventPage, self).get_context_data(**kwargs)
+       pk = self.kwargs['pk']
+       bar = Bar.objects.get(pk=pk)
+       events = Event.objects.filter(bar=pk).order_by('date')
+       context['bar'] = bar
+       context['events'] = events
+       return context
+
+class UpdateEventPage(UpdateView):
+    model = Event
+    form_class = EventForm
+    template_name = 'bar/event_form.html'
+
+    def form_valid(self, form):
+       form.save()
+       # TODO: Change to redirct to last page
+       return redirect('/')
+
+class DeleteEventPage(DeleteView):
+    model = Event
+    # TODO: Change to redirct to last pagef
+    success_url = reverse_lazy('bar:index')
 
 
 class PointOfSales(DetailView):

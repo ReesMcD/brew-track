@@ -4,14 +4,35 @@
 <h1>{{ bar.name }}</h1>
 <p>Welcome to the {{ bar.name }} brewTrack page!</p>
 
+{# Events #}
 {% if events %}
 
     <h2>
         Events
         {% if user.is_authenticated %}
-        <a id="" uk-icon="cog" href="#"></a>
+        <a id="" uk-icon="cog" href="#events-setting" uk-toggle></a>
         {% endif %}
     </h2>
+    {# Events Modal #}
+
+    <div id="events-setting" uk-modal>
+    <div class="uk-modal-dialog">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <div class="uk-modal-header">
+            <h2 class="uk-modal-title">Event Options</h2>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <a href="{% url 'bar:create_event' bar.id%}">
+                <button class="uk-button uk-button-primary" type="button">Add Event</button>
+            </a>
+            <a href="{% url 'bar:events' bar.id%}">
+                <button class="uk-button uk-button-primary" type="button">See All Events</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+
     <div class=" uk-grid-match uk-grid-small uk-child-width-1-2@s" uk-grid>
         <div class="">
             <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-animation-fade">
@@ -38,6 +59,7 @@
     {% endif %}
 </h2>
 
+{# Filter Tabs #}
 <div uk-filter="target: .js-filter">
     <div class="uk-grid-small uk-grid-divider uk-child-width-auto" uk-grid>
         <div>
@@ -45,7 +67,6 @@
                 <li class="uk-active" uk-filter-control><a href="#">All</a></li>
             </ul>
         </div>
-
         <div>
             <ul class="uk-subnav uk-subnav-pill" uk-margin>
                 {% for type in typeList %}
@@ -53,7 +74,6 @@
                 {% endfor %}
             </ul>
         </div>
-
         <div>
             <ul class="uk-subnav uk-subnav-pill" uk-margin>
                 {% for type in subList%}
@@ -61,7 +81,6 @@
                 {% endfor %}
             </ul>
         </div>
-
     </div>
 
 {# Item Cards #}
@@ -129,21 +148,20 @@
             <div class="uk-modal-dialog">
                 <button class="uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{item.name}} Are you sure?</h2>
+                    <h2 class="uk-modal-title">Are you sure you want to delete {{item.name}}?</h2>
                 </div>
                 <div class="uk-modal-footer">
-                    <button class="uk-button uk-button-danger uk-align-right" href="" type="button">Delete</button>
-                    <button class="uk-button uk-button-default uk-align-right uk-modal-close" type="button">Cancel</button>
+                    <form class="" action="{% url 'bar:delete_item' item.id%}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="item.id" value="{{item.id}}">
+                        <button class="uk-button uk-button-danger uk-align-right" href="" type="submit">Delete</button>
+                        <button class="uk-button uk-button-default uk-align-right uk-modal-close" type="button" uk-toggle="target: #item-settings-{{item.id}}">Cancel</button>
+                    </form>
                 </div>
             </div>
         </div>
-
-
         {% endfor %}
     </div>
-
-
-
 </div>
 
 <script type="text/javascript">

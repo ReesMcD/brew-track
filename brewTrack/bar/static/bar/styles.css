@@ -34,12 +34,12 @@ body {
 
 /* Website Base */
 .uk-navbar-container {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1d87f0+0,4ba2e5+100 */
-background: #1d87f0 !important; /* Old browsers */
-background: -moz-linear-gradient(left, #1d87f0 0%, #4ba2e5 100%) !important; /* FF3.6-15 */
-background: -webkit-linear-gradient(left, #1d87f0 0%,#4ba2e5 100%) !important; /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, #1d87f0 0%,#4ba2e5 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d87f0', endColorstr='#4ba2e5',GradientType=1 ) !important; /* IE6-9 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1d87f0+0,7bb6e0+100 */
+  background: #1d87f0 !important; /* Old browsers */
+  background: -moz-linear-gradient(left, #1d87f0 0%, #7bb6e0 100%) !important; /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #1d87f0 0%,#7bb6e0 100%) !important; /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #1d87f0 0%,#7bb6e0 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1d87f0', endColorstr='#7bb6e0',GradientType=1) !important; /* IE6-9 */
 }
 .nav-link {
     color: #f6f7f8 !important;
@@ -107,4 +107,36 @@ h1.uk-card-title {
   margin-top: 25px;
   margin-left: 10px;
   font-size: 14px !important;
+}
+
+/* Calender Styling */
+.ui-datepicker {
+ /* background: #ffffff !important; */
+}
+.ui-datepicker-header{
+  background: #1d87f0 !important;
+  border-color: #1d87f0 !important;
+}
+.ui-datepicker-prev {
+  float: left;
+  cursor: pointer;
+}
+.ui-datepicker-next {
+    /* float: right;
+    cursor: pointer;
+    background-position: center 0px; */
+}
+.ui-datepicker-next:hover {
+  background: #4ba2e5 !important;
+  border-color: #4ba2e5 !important;
+}
+.ui-datepicker-prev:hover {
+  background: #4ba2e5 !important;
+  border-color: #4ba2e5 !important;
+}
+.trash-button: {
+    background-color: #696969 !important;
+}
+.trash-button:hover {
+    color: #EE395B !important;
 }

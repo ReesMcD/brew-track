@@ -44,7 +44,7 @@ class Event(models.Model):
     name = models.CharField(max_length=20, default='')
     type = models.CharField(max_length=20, default='')
     description = models.CharField(max_length=100, default='', blank=True)
-    date = models.DateTimeField("Event Date",default=datetime.now, blank=True)
+    date = models.DateField("Event Date",default=datetime.now, blank=True)
     reoccuring = models.BooleanField(default=True)
     frequancy = models.CharField('Frequancy', max_length=500, default='', blank=True)
     ticket = models.BooleanField(default=False)

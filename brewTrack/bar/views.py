@@ -123,9 +123,10 @@ class EventPage(ListView):
        context = super(EventPage, self).get_context_data(**kwargs)
        pk = self.kwargs['pk']
        bar = Bar.objects.get(pk=pk)
-       events = Event.objects.filter(bar=pk).order_by('date')
+       menu = Menu.objects.get(bar=pk)
+       items = Item.objects.filter(menu=menu.id)
+
        context['bar'] = bar
-       context['events'] = events
        return context
 
 class UpdateEventPage(UpdateView):
@@ -146,11 +147,32 @@ class DeleteEventPage(DeleteView):
 
 class PointOfSales(DetailView):
     model = Bar
-    slug_field = 'pk'
+
     template_name = 'bar/pos.html'
 
     def get_context_data(self, **kwargs):
        context = super(PointOfSales, self).get_context_data(**kwargs)
+       pk = self.kwargs['pk']
+       bar = get_object_or_404(Bar, pk=pk)
+       menu = Menu.objects.get(bar=pk)
+       items = Item.objects.filter(menu=menu.id).order_by('name')
+
+       typeList = {}
+       subList = {}
+       for item in items:
+         if item.type not in typeList:
+             typeList[item.type] = item.type
+         if item.subtype not in subList:
+            subList[item.subtype] = item.subtype
+
+       context = {
+           'bar' : bar,
+           'menu' : menu,
+           'items' : items,
+           'typeList' : typeList,
+           'subList' : sorted(subList)
+       }
+
        return context
 
 class Login(TemplateView):

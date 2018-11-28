@@ -2,6 +2,14 @@
 {% block content %}
 
 <h1>{{ bar.name }}</h1>
+
+{% if user.is_authenticated %}
+<a class="uk-align-right" href="{% url 'bar:pos' bar.id%}">
+<button class="uk-button uk-button-primary">
+    Point of Sales
+</button></a>
+{% endif %}
+
 <p>Welcome to the {{ bar.name }} brewTrack page!</p>
 
 {# Events #}
@@ -15,7 +23,7 @@
     </h2>
     {# Events Modal #}
 
-    <div id="events-setting" uk-modal>
+<div id="events-setting" uk-modal>
     <div class="uk-modal-dialog">
         <button class="uk-modal-close-default" type="button" uk-close></button>
         <div class="uk-modal-header">
@@ -36,8 +44,8 @@
     <div class=" uk-grid-match uk-grid-small uk-child-width-1-2@s" uk-grid>
         <div class="">
             <div class="uk-card uk-card-default uk-card-hover uk-card-body uk-animation-fade">
-                <h3 class="uk-card-title uk-margin-remove-bottom uk-margin-remove-top">Next Event</h3>
-                <p>{{events.first.name}} - {{events.first.date}}</p>
+                <h3 class="uk-card-title uk-margin-remove-bottom uk-margin-remove-top">Next Event - {{events.first.name}}</h3>
+                <p>{{events.first.date}}</p>
             </div>
         </div>
         <div class="">

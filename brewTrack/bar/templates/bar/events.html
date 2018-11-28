@@ -11,8 +11,8 @@
             <ul class="uk-list uk-list-divider">
                 {% for event in events %}
                 <li class="uk-animation-fade">
-                    <h3 class="uk-margin-top">
-                        <a href="">{{ event.name }}</a>
+                    <h3 class="uk-margin-top uk-margin-remove-bottom">
+                        {{ event.name }}
 
                         <form id="delete-event" action="{% url 'bar:delete_event' event.id%}" method="post">
                             {% csrf_token %}
@@ -21,8 +21,9 @@
                         </form>
                         <a class="uk-align-right" uk-icon="settings" href="{% url 'bar:update_event' event.id%}"></a>
                     </h3>
+                    <div>{{event.type}}</div>
                     <div><span uk-icon="calendar"></span>{{event.date}}</div>
-
+                    <div class="">{{event.description}}</div>
                 </li>
                 <br />
 

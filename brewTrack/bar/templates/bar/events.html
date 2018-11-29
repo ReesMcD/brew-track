@@ -1,7 +1,7 @@
 {% extends "bar/base.html" %}
 
 {% block content %}
-
+{% if user.is_authenticated %}
     <div>
         <div class="uk-card uk-card-default uk-card-body uk-card-hover">
             <div class="uk-card-header">
@@ -33,5 +33,7 @@
 
         </div>
     </div>
-
+    {% else %}
+    <h1>Access Denied</h1>
+{% endif %}
 {% endblock content %}

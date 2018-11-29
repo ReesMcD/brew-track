@@ -51,20 +51,31 @@
 
 </div>
 
-<script>
-    var map;
+<script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+<link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {
-                lat: -34.397,
-                lng: 150.644
-            },
-            zoom: 8
-        });
-    }
+<script>
+  L.mapquest.key = 'DRWqawOaON9BhBAg7SLazItfXHWdk9Dq';
+  console.log("{{bar_list}}");
+  
+  var map = L.mapquest.map('map', {
+    center: [40.7934, -77.8600],
+    layers: L.mapquest.tileLayer('map'),
+    zoom: 12
+  
+  });
+  L.mapquest.textMarker([40.7934, -77.8600], {
+  text: 'Coffee Shop',
+  subtext: 'Iconic coffeehouse chain',
+  position: 'right',
+  type: 'marker',
+  icon: {
+    primaryColor: '#333333',
+    secondaryColor: '#333333',
+    size: 'lg'
+  }
+}).addTo(map);
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrYhIEAW2IrOyYqUhXbqWBD8ascwxyWXo&callback=initMap" async defer></script>
 
 <!-- AIzaSyBrYhIEAW2IrOyYqUhXbqWBD8ascwxyWXo -->
 

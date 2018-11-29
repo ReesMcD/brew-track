@@ -4,3 +4,4 @@ env
 __pycache__
 /brewTrack/config.json
 .vscode
+brewTrack/debug.log

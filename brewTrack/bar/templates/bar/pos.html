@@ -2,6 +2,7 @@
 {% block content %}
 <style>
 </style>
+{% if user.is_authenticated %}
 <h1>{{bar.name}} Point of Sales</h1>
 <div class=" uk-grid-small uk-grid-match uk-child-width-1-2@m" uk-grid>
     <div>
@@ -71,6 +72,9 @@
         </div>
     </div>
 </div>
+{% else %}
+<h1>Access Denied</h1>
+{% endif %}
 
 <script type="text/javascript">
     itemList = []

@@ -149,6 +149,6 @@ h1.uk-card-title {
 .pos-body {
   flex: 1;
 }
-#pos-footer {
-
-}
+/* #pos-total {
+    margin-top: -40px;
+} */

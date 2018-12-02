@@ -15,19 +15,21 @@
                 <ul id="pos-list" class="scrollable uk-list uk-list-divider" style="height: 40vh;"></ul>
             </div>
             <div id=pos-footer class="uk-card-footer">
-                <a>
-                    <button onclick="logTab()"class="uk-button uk-button-primary" type="button">Pay</button>
-                </a>
-                <a href="">
-                    <button class="uk-button uk-button-primary" type="button">Change Tab</button>
-                </a>
-                <h3 id="pos-total" class="uk-align-right">
-                    0.00
-                </h3>
-                <h3 class="uk-align-right" style="margin-right: -30px;">
-                    Total:  $
-                </h3>
-
+                <form id="pay-form"onsubmit="return false;" method="post">
+                    {% csrf_token %}
+                    <a>
+                        <button id="pay-button" class="uk-button uk-button-primary">Pay</button>
+                    </a>
+                    <a href="">
+                        <button class="uk-button uk-button-primary" type="button">Change Tab</button>
+                    </a>
+                        <h3 id="pos-total" class="uk-align-right">
+                            0.00
+                        </h3>
+                        <h3 class="uk-align-right" style="margin-right: -30px;">
+                            Total:  $
+                        </h3> 
+                </form>
             </div>
         </div>
     </div>
@@ -76,9 +78,23 @@
 <h1>Access Denied</h1>
 {% endif %}
 
+{% csrf_token %}
 <script type="text/javascript">
     itemList = []
     var point = 0
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+
+    function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
 
     function addItem(name, price, id) {
         var inFlag = false;
@@ -109,8 +125,16 @@
         $( "#pos-total" ).text(parseFloat(Math.round(total * 100) / 100).toFixed(2));
     }
 
-    function logTab() {
-        console.log(itemList);
-    }
+    $('#pay-button').click( function(){
+
+        console.log("form submitted!")  // sanity check
+        $.ajax({
+            url: 'http://127.0.0.1:8000/bar/6/pos/',
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            async: true,
+            data: JSON.stringify(itemList),
+        });
+    });
 </script>
 {% endblock content %}

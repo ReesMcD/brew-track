@@ -7,6 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from bar.forms import *
 from .models import *
 import logging
+import json
+from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
@@ -124,8 +126,9 @@ class EventPage(ListView):
        pk = self.kwargs['pk']
        bar = Bar.objects.get(pk=pk)
        menu = Menu.objects.get(bar=pk)
-       items = Item.objects.filter(menu=menu.id)
+       events = Event.objects.filter(bar=bar.id)
 
+       context['events'] = events
        context['bar'] = bar
        return context
 
@@ -145,35 +148,75 @@ class DeleteEventPage(DeleteView):
     success_url = reverse_lazy('bar:index')
 
 
-class PointOfSales(DetailView):
+class PointOfSales(View):
     model = Bar
-
+    # form_class = PayForm
     template_name = 'bar/pos.html'
 
-    def get_context_data(self, **kwargs):
-       context = super(PointOfSales, self).get_context_data(**kwargs)
-       pk = self.kwargs['pk']
-       bar = get_object_or_404(Bar, pk=pk)
-       menu = Menu.objects.get(bar=pk)
-       items = Item.objects.filter(menu=menu.id).order_by('name')
+    def get(self, request, pk):
 
-       typeList = {}
-       subList = {}
-       for item in items:
-         if item.type not in typeList:
-             typeList[item.type] = item.type
-         if item.subtype not in subList:
-            subList[item.subtype] = item.subtype
+        # pk = self.kwargs['pk']
+        bar = get_object_or_404(Bar, pk=pk)
+        menu = Menu.objects.get(bar=pk)
+        items = Item.objects.filter(menu=menu.id).order_by('name')
 
-       context = {
-           'bar' : bar,
-           'menu' : menu,
-           'items' : items,
-           'typeList' : typeList,
-           'subList' : sorted(subList)
-       }
+        typeList = {}
+        subList = {}
+        for item in items:
+          if item.type not in typeList:
+              typeList[item.type] = item.type
+          if item.subtype not in subList:
+             subList[item.subtype] = item.subtype
 
-       return context
+        context = {
+            'bar' : bar,
+            'menu' : menu,
+            'items' : items,
+            'typeList' : typeList,
+            'subList' : sorted(subList)
+        }
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        pk = self.kwargs['pk']
+        bar = get_object_or_404(Bar, pk=pk)
+        menu = Menu.objects.get(bar=pk)
+        items = Item.objects.filter(menu=menu.id).order_by('name')
+
+        typeList = {}
+        subList = {}
+        for item in items:
+          if item.type not in typeList:
+              typeList[item.type] = item.type
+          if item.subtype not in subList:
+             subList[item.subtype] = item.subtype
+
+        context = {
+            'bar' : bar,
+            'menu' : menu,
+            'items' : items,
+            'typeList' : typeList,
+            'subList' : sorted(subList)
+        }
+
+        json_data=json.loads(request.body)
+
+        try:
+            for p_item in json_data:
+                item = Item.objects.get(pk=p_item['id'])
+                if item.current_amount:
+                    current_amount = item.current_amount  - (item.size * p_item['count'])
+                    Item.objects.filter(pk=p_item['id']).update(current_amount=current_amount)
+
+                purchases = item.purchases + p_item['count']
+                Item.objects.filter(pk=p_item['id']).update(purchases=purchases)
+
+        except Exception as error:
+            print('Caught this error: ' + repr(error))
+
+
+        return render(request, self.template_name, context)
+
 
 class Login(TemplateView):
     template_name = 'bar/login.html'

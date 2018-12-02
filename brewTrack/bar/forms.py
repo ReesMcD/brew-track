@@ -84,3 +84,11 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ['name', 'type', 'description', 'reoccuring_flag', 'frequancy', 'ticket_flag', 'date']
+
+class PayForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+          super().__init__(*args, **kwargs)
+
+    class Meta:
+        model = Item
+        fields = ['current_amount', 'purchases']

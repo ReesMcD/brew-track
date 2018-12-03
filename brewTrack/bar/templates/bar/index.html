@@ -63,22 +63,56 @@
   var map = L.mapquest.map('map', {
     center: [40.7934, -77.8600],
     layers: L.mapquest.tileLayer('map'),
-    zoom: 12
+    zoom: 14
 
   });
-  L.mapquest.textMarker([40.7934, -77.8600], {
-  text: 'Coffee Shop',
-  subtext: 'Iconic coffeehouse chain',
+  L.mapquest.textMarker([40.794140, -77.861580], {
+  text: 'Bill Pickles Tap Room',
+  subtext: 'Bar',
   position: 'right',
   type: 'marker',
   icon: {
     primaryColor: '#333333',
     secondaryColor: '#333333',
-    size: 'lg'
+    size: 'sm'
+  }
+}).addTo(map);
+
+L.mapquest.textMarker([40.789211, -77.858162], {
+  text: 'Cafe 210',
+  subtext: 'Bar',
+  position: 'right',
+  type: 'marker',
+  icon: {
+    primaryColor: '#333333',
+    secondaryColor: '#333333',
+    size: 'sm'
+  }
+}).addTo(map);
+
+L.mapquest.textMarker([40.794810, -77.860560], {
+  text: 'Jax Bar & Grill',
+  subtext: 'Bar',
+  position: 'right',
+  type: 'marker',
+  icon: {
+    primaryColor: '#333333',
+    secondaryColor: '#333333',
+    size: 'sm'
+  }
+}).addTo(map);
+
+L.mapquest.textMarker([40.795410, -77.859750], {
+  text: 'ShandyGaff',
+  subtext: 'Bar',
+  position: 'right',
+  type: 'marker',
+  icon: {
+    primaryColor: '#333333',
+    secondaryColor: '#333333',
+    size: 'sm'
   }
 }).addTo(map);
 </script>
-
-<!-- AIzaSyBrYhIEAW2IrOyYqUhXbqWBD8ascwxyWXo -->
 
 {% endblock content %}

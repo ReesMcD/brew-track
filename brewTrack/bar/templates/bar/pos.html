@@ -28,7 +28,7 @@
                         </h3>
                         <h3 class="uk-align-right" style="margin-right: -30px;">
                             Total:  $
-                        </h3> 
+                        </h3>
                 </form>
             </div>
         </div>
@@ -129,12 +129,14 @@
 
         console.log("form submitted!")  // sanity check
         $.ajax({
-            url: 'http://127.0.0.1:8000/bar/6/pos/',
+            url: window.location.href,
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
             async: true,
             data: JSON.stringify(itemList),
         });
+
+        window.location.reload();
     });
 </script>
 {% endblock content %}

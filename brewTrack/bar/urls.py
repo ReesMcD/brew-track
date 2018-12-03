@@ -9,7 +9,12 @@ urlpatterns = [
     url(r'^register', Register.as_view(), name='register'),
     url(r'^login', Login.as_view(), name='login'),
     url(r'^logout', views.logout_view, name="logout"),
+    url(r'^user/profile/$', Profile.as_view(), name='profile'),
     url(r'^bar/(?P<pk>[0-9]+)/$', BarPage.as_view(), name='bar'),
+    url(r'^bar/create/$', CreateBarPage.as_view(), name='create_bar'),
+    url(r'^bar/(?P<pk>[0-9]+)/edit_bar/$', UpdateBarPage.as_view(), name='update_bar'),
+    url(r'^bar/(?P<pk>[0-9]+)/delete_bar/$', DeleteBarPage.as_view(), name='delete_bar'),
+
     # Item CRUD
     url(r'^bar/(?P<pk>[0-9]+)/create_item/$', CreateItemPage.as_view(), name='create_item'),
     url(r'^item/(?P<pk>[0-9]+)/edit_item/$', UpdateItemPage.as_view(), name='update_item'),

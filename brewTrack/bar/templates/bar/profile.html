@@ -1,0 +1,39 @@
+{% extends "bar/base.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div>
+        <h1>{{user.username}} Profile</h1>
+        <div class="uk-card uk-card-default uk-card-body uk-card-hover">
+            <div class="uk-card-header">
+                <h1 class="uk-card-title uk-margin-remove-bottom">Bar Manager</h1>
+            </div>
+
+            <ul class="uk-list uk-list-divider">
+                {% for bar in bar_list %}
+                <li class="uk-animation-fade">
+                    <h3 class="uk-margin-top uk-margin-remove-bottom">
+                        {{ bar.name }}
+                    <a class="uk-card-badge" uk-icon="plus" href="/bar/create" uk-toggle></a>
+                        <form id="delete-bar" action="{% url 'bar:delete_bar' bar.id%}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="bar.id" value="{{bar.id}}">
+                            <a class="trash-button uk-align-right" onclick="document.getElementById('delete-bar').submit();" uk-icon="trash"></a>
+                        </form>
+                        <a class="uk-align-right" uk-icon="settings" href="{% url 'bar:update_bar' bar.id%}"></a>
+                    </h3>
+                    <div>{{bar.hours}}</div>
+                    <div><span uk-icon="calendar"></span>{{bar.location}}</div>
+                </li>
+                <br />
+
+                {% endfor %}
+            </ul>
+
+
+        </div>
+    </div>
+    {% else %}
+    <h1>Access Denied</h1>
+{% endif %}
+{% endblock content %}

@@ -16,7 +16,7 @@
 
                         <form id="delete-event" action="{% url 'bar:delete_event' event.id%}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="item.id" value="{{item.id}}">
+                            <input type="hidden" name="event.id" value="{{event.id}}">
                             <a class="trash-button uk-align-right" onclick="document.getElementById('delete-event').submit();" uk-icon="trash"></a>
                         </form>
                         <a class="uk-align-right" uk-icon="settings" href="{% url 'bar:update_event' event.id%}"></a>

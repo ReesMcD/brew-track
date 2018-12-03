@@ -25,6 +25,22 @@ class LoginForm(forms.Form):
         model = User
         fields = ['username', 'password']
 
+class BarForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+          super().__init__(*args, **kwargs)
+          self.fields['location'].label = "Address"
+
+    name = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Name of Bar',}))
+    location = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Full Address',}))
+    hours = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'uk-input ','placeholder' : 'Ex. 5pm-2am',}))
+
+    class Meta:
+        model = Bar
+        fields = ['name', 'location', 'hours']
+
 
 class ItemForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):

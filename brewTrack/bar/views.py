@@ -6,11 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth import authenticate, login, logout
 from bar.forms import *
 from .models import *
-import logging
+import datetime
 import json
-from django.views.decorators.csrf import csrf_exempt
-
-logger = logging.getLogger(__name__)
 
 class Index(ListView):
     model = Bar
@@ -22,6 +19,41 @@ class Index(ListView):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+class Profile(ListView):
+    model = Bar
+    # Ordering Alphabetically
+    ordering = ['name']
+    template_name = 'bar/profile.html'
+
+class CreateBarPage(CreateView):
+    model = Bar
+    form_class = BarForm
+    template_name = 'bar/event_form.html'
+
+    def form_valid(self, form):
+        bar = form.save(commit=False)
+        bar.pub_date = datetime.datetime.today().strftime('%Y-%m-%d')
+        bar.save()
+        menu = Menu.objects.create(name=bar.name + " Menu", bar=bar)
+
+        # TODO: Change to redirct to last page
+        return redirect('/')
+
+class UpdateBarPage(UpdateView):
+    model = Bar
+    form_class = BarForm
+    template_name = 'bar/event_form.html'
+
+    def form_valid(self, form):
+       form.save()
+       # TODO: Change to redirct to last page
+       return redirect('/')
+
+class DeleteBarPage(DeleteView):
+    model = Bar
+    # TODO: Change to redirct to last pagef
+    success_url = reverse_lazy('bar:index')
 
 # Bar Page and Form
 class BarPage(DetailView):

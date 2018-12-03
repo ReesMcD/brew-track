@@ -125,8 +125,7 @@
         $( "#pos-total" ).text(parseFloat(Math.round(total * 100) / 100).toFixed(2));
     }
 
-    $('#pay-button').click( function(){
-
+    $('#pay-button').click(function() {
         console.log("form submitted!")  // sanity check
         $.ajax({
             url: window.location.href,

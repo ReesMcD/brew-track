@@ -55,64 +55,33 @@
 <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
 <script>
-
-
+  barList = []
   L.mapquest.key = 'DRWqawOaON9BhBAg7SLazItfXHWdk9Dq';
-  console.log("{{bar_list}}");
 
   var map = L.mapquest.map('map', {
     center: [40.7934, -77.8600],
     layers: L.mapquest.tileLayer('map'),
-    zoom: 14
-
+    zoom: 16
   });
-  L.mapquest.textMarker([40.794140, -77.861580], {
-  text: 'Bill Pickles Tap Room',
-  subtext: 'Bar',
-  position: 'right',
-  type: 'marker',
-  icon: {
-    primaryColor: '#333333',
-    secondaryColor: '#333333',
-    size: 'sm'
-  }
-}).addTo(map);
 
-L.mapquest.textMarker([40.789211, -77.858162], {
-  text: 'Cafe 210',
-  subtext: 'Bar',
-  position: 'right',
-  type: 'marker',
-  icon: {
-    primaryColor: '#333333',
-    secondaryColor: '#333333',
-    size: 'sm'
-  }
-}).addTo(map);
+  {% for bar in bar_list %}
+    $.get( "http://www.mapquestapi.com/geocoding/v1/address?key=DRWqawOaON9BhBAg7SLazItfXHWdk9Dq&location=" + "{{bar.location}}", function( data ) {
+      barList.push({"name":'{{bar.name}}', "lat": data.results[0].locations[0].latLng.lat, "lng": data.results[0].locations[0].latLng.lng})
 
-L.mapquest.textMarker([40.794810, -77.860560], {
-  text: 'Jax Bar & Grill',
-  subtext: 'Bar',
-  position: 'right',
-  type: 'marker',
-  icon: {
-    primaryColor: '#333333',
-    secondaryColor: '#333333',
-    size: 'sm'
-  }
-}).addTo(map);
+      L.mapquest.textMarker([data.results[0].locations[0].latLng.lat, data.results[0].locations[0].latLng.lng], {
+      text: '{{bar.name}}',
+      position: 'center',
+      type: 'marker',
+      icon: {
+      primaryColor: '#333333',
+      secondaryColor: '#333333',
+      size: 'sm'
+      }
+      }).addTo(map);
 
-L.mapquest.textMarker([40.795410, -77.859750], {
-  text: 'ShandyGaff',
-  subtext: 'Bar',
-  position: 'right',
-  type: 'marker',
-  icon: {
-    primaryColor: '#333333',
-    secondaryColor: '#333333',
-    size: 'sm'
-  }
-}).addTo(map);
-</script>
+    });
+  {% endfor %}
+
+  </script>
 
 {% endblock content %}

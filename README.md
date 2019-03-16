@@ -1,3 +1,4 @@
 # brewTrack
-Hello Push
-Another Hello
+A bar managment tool.
+
+2018 Penn State Capstone Project

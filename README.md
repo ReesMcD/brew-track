@@ -1,7 +1,7 @@
 # brewTrack
 An all in one bar managment tool.
 
-Created with (Django)[https://www.djangoproject.com/], (MongoDB)[https://www.mongodb.com/], and (UIKit)[https://getuikit.com/]. 
+Created with [Django](https://www.djangoproject.com/), [MySQL](https://www.mysql.com/), and [UIKit](https://getuikit.com/). 
 
 ## Concept
 Bars and Restaurants us many pieces of software for daily functions and as technology grows and these businesses adapt further more and more technology will influence their daily activies. brewTrack was an idea to consolidate all of these different softwares to one piece of technology. 
